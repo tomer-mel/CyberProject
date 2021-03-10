@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     {
         if (IsValid())
         {
-            //next page
+            //next activity
         }
         //try again
     }
