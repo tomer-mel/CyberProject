@@ -31,8 +31,12 @@ public class MainActivity extends AppCompatActivity {
         textView.setText(R.string.tryagain);
         return false;
     }
-    public void homepage()
+    public void homepage(View view)
     {
-
+        if (IsValid())
+        {
+            //next page
+        }
+        //try again
     }
 }
