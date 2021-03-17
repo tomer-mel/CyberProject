@@ -6,11 +6,14 @@
     <string name="login">Login</string>
     <string name="useremail1">tomer.melamed03@gmail.com</string>
     <string name="userpassword1">123456</string>
-    <string name="useremail2">tomer.melamed@gmail.com</string>
+    <string name="useremail2">tomer@gmail.com</string>
     <string name="userpassword2">1234567</string>
-    <string name="useremail3">tomer@gmail.com</string>
-    <string name="userpassword3">654321</string>
-    <string name="useremail4">melamed03@gmail.com</string>
-    <string name="userpassword4">7654321</string>
-    <string name="tryagain">"wrong email or password, please Try Again"</string>
+    <string name="useremail3">roee@gmail.com</string>
+    <string name="userpassword3">12345678</string>
+    <string name="useremail4">aviv@gmail.com</string>
+    <string name="userpassword4">123456789</string>
+    <string name="tryagain">wrong email or password, please Try Again</string>
+    <string name="writetext">write text here</string>
+    <string name="sendbutton">Send</string>
+
 </resources>
