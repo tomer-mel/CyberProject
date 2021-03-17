@@ -40,6 +40,7 @@ public class Logged_in extends AppCompatActivity {
     //    Image = HideTextInImage(byte[] encryptedmessage);
 
 
+
     // need to figure out how to return the key(it doesn't support multi return)
     public byte[] EncryptingTextWay1(String text){ // Encrypting the text and creates a key
         byte[] bin = text.getBytes();

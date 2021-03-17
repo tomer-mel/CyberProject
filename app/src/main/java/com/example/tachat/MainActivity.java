@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
+
     public boolean IsValid() //need to do a python server who will do that
     {
         EditText editText = (EditText) findViewById(R.id.emailfill);
