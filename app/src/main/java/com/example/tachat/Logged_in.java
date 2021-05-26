@@ -2,15 +2,12 @@ package com.example.tachat;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
-import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.os.Bundle;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -21,6 +18,7 @@ import java.util.Random;
 // EncryptingTextWay2, HideTextInImageWay1, HideTextInImageWay2
 // server that gets every pic with message and holds a string of them and sends them to the app whenever it opens
 // make a database for pictures with different topics and chose random topic from which to send pictures
+// make it possible to add users
 
 public class Logged_in extends AppCompatActivity {
 
@@ -33,7 +31,11 @@ public class Logged_in extends AppCompatActivity {
         TextView textView = findViewById(R.id.welcome);
         String welcome = "Welcome " + message;
         textView.setText(welcome);
-        LoadMessages();
+        TextView last_messages_line = findViewById(R.id.last_line);
+        last_messages_line.requestFocus();
+        TextView end2 = findViewById(R.id.end);
+        end2.requestFocus();
+       // LoadMessages();
     }
 
 

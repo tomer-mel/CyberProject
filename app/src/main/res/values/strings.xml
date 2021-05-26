@@ -15,5 +15,6 @@
     <string name="tryagain">wrong email or password, please Try Again</string>
     <string name="writetext">write text here</string>
     <string name="sendbutton">Send</string>
-    <string name="messages"></string>
+    <string name="messages">first line\nfdgfgfdg\nfgfdgfdgfdgfdgghgfhgfhgfhgfhgfhgfgfh\nfdgfgfdg\nfgfdgfdgfdgfdgghgfhgfhgfhgfhgfhgfgfh\nfdgfgfdg\nfgfdgfdgfdgfdgghgfhgfhgfhgfhgfhgfgfh\nfdgfgfdg\nfgfdgfdgfdgfdgghgfhgfhgfhgfhgfhgfgfh\nfdgfgfdg\nfgfdgfdgfdgfdgghgfhgfhgfhgfhgfhgfgfh\nfdgfgfdg\nfgfdgfdgfdgfdgghgfhgfhgfhgfhgfhgfgfh\nfdgfgfdg\nfgfdgfdgfdgfdgghgfhgfhgfhgfhgfhgfgfh\nfdgfgfdg\nfgfdgfdgfdgfdgghgfhgfhgfhgfhgfhgfgfh\nfdgfgfdg\nfgfdgfdgfdgfdgghgfhgfhgfhgfhgfhgfgfh\nfdgfgfdg\nfgfdgfdgfdgfdgghgfhgfhgfhgfhgfhgfgfh\nfdgfgfdg\nfgfdgfdgfdgfdgghgfhgfhgfhgfhgfhgfgfh\nfdgfgfdg\nfgfdgfdgfdgfdgghgfhgfhgfhgfhgfhgfgfh\nfdgfgfdg\nfgfdgfdgfdgfdgghgfhgfhgfhgfhgfhgfgfh\nfdgfgfdg\nfgfdgfdgfdgfdgghgfhgfhgfhgfhgfhgfgfh\nfdgfgfdg\nfgfdgfdgfdgfdgghgfhgfhgfhgfhgfhgfgfh\nfdgfgfdg\nfgfdgfdgfdgfdgghgfhgfhgfhgfhgfhgfgfh\nfdgfgfdg\nfgfdgfdgfdgfdgghgfhgfhgfhgfhgfhgfgfh\nfdgfgfdg\nfgfdgfdgfdgfdgghgfhgfhgfhgfhgfhgfgfh\nfdgfgfdg\nfgfdgfdgfdgfdgghgfhgfhgfhgfhgfhgfgfh\nfdgfgfdg\nfgfdgfdgfdgfdgghgfhgfhgfhgfhgfhgfgfh\nfdgfgfdg\nfgfdgfdgfdgfdgghgfhgfhgfhgfhgfhgfgfh\nfdgfgfdg\nfgfdgfdgfdgfdgghgfhgfhgfhgfhgfhgfgfh\nfdgfgfdg</string>
+    <string name="nothing"></string>
 </resources>
