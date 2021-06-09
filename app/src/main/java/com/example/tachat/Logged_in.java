@@ -14,7 +14,6 @@ import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.Socket;
 import java.util.Random;
-
 // make it possible to add users
 // EncryptingTextWay2
 // HideTextInImageWay1
@@ -24,7 +23,6 @@ import java.util.Random;
 // make a database for pictures with different topics and chose random topic from which to send pictures
 
 public class Logged_in extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,8 +39,6 @@ public class Logged_in extends AppCompatActivity {
        // LoadMessages();
     }
 
-
-
     public void SendImage(View view) { // sends the pic message to the server
         TextView textView = findViewById(R.id.textline);
         String text = textView.getText().toString();
@@ -51,15 +47,12 @@ public class Logged_in extends AppCompatActivity {
         //Image img = HideTextInImage(encryptedmessage, key);
     }
 
-
-
     public String MakeRandomKey(){
         byte[] rad = new byte[40];
         Random key = new Random();
         key.nextBytes(rad);
         return key.toString();
     }
-
 
     //public byte[] EncryptText(String text, String key){
     //    int Rannum = new Random().nextInt(2) + 1;
@@ -68,7 +61,6 @@ public class Logged_in extends AppCompatActivity {
     //    else
     //        return(EncryptingTextWay2(text, key));
    // }
-
 
     public byte[] EncryptingTextWay1(String text, String key){   //finished
         byte[] bin = text.getBytes();
@@ -79,7 +71,6 @@ public class Logged_in extends AppCompatActivity {
         }
         return encryptedmessage;
     }
-
 
     //public byte[] EncryptingTextWay2(String text, String key){ // Encrypting the text
 
@@ -98,8 +89,6 @@ public class Logged_in extends AppCompatActivity {
 
     //public byte[] HideTextInImageWay2(byte[] encryptedmessage, String key){ // hides the text in the Image in a different way
     //}
-
-
 
     public void LoadMessages(){
         new Thread(new Runnable(){
