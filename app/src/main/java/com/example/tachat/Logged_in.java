@@ -15,10 +15,13 @@ import java.io.InputStreamReader;
 import java.net.Socket;
 import java.util.Random;
 
-// EncryptingTextWay2, HideTextInImageWay1, HideTextInImageWay2
-// server that gets every pic with message and holds a string of them and sends them to the app whenever it opens
-// make a database for pictures with different topics and chose random topic from which to send pictures
 // make it possible to add users
+// EncryptingTextWay2
+// HideTextInImageWay1
+// HideTextInImageWay2
+// server that gets every pic with message and holds a string of them and sends them to the app whenever it opens
+// the server will have a folder with pictures for every user and will check that the user have all the pictures in the chat and will send the pictures between the users
+// make a database for pictures with different topics and chose random topic from which to send pictures
 
 public class Logged_in extends AppCompatActivity {
 
@@ -44,7 +47,7 @@ public class Logged_in extends AppCompatActivity {
         TextView textView = findViewById(R.id.textline);
         String text = textView.getText().toString();
         String key = MakeRandomKey();
-        //    byte[] encryptedmessage = EncryptText(text, key);
+        //byte[] encryptedmessage = EncryptText(text, key);
         //Image img = HideTextInImage(encryptedmessage, key);
     }
 
@@ -79,6 +82,7 @@ public class Logged_in extends AppCompatActivity {
 
 
     //public byte[] EncryptingTextWay2(String text, String key){ // Encrypting the text
+
     //}
 
     //public Image HideTextInImage(byte[] encryptedmessage, String key){ // hides the text and key in the image in one of two ways, need to figure out how to hide everything in the image.
@@ -120,8 +124,5 @@ public class Logged_in extends AppCompatActivity {
             }
         }).start();
     }
-
-
-
 }
 
