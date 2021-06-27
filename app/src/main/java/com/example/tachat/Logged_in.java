@@ -4,18 +4,30 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import androidx.exifinterface.media.ExifInterface;
+import android.media.Image;
+import android.media.MediaMetadata;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.Random;
 // make it possible to add users
-// EncryptingTextWay2
 // HideTextInImageWay1
 // HideTextInImageWay2
 // server that gets every pic with message and holds a string of them and sends them to the app whenever it opens
@@ -39,28 +51,30 @@ public class Logged_in extends AppCompatActivity {
        // LoadMessages();
     }
 
-    public void SendImage(View view) { // sends the pic message to the server
+    public void SendImage(View view) throws IOException, URISyntaxException { // sends the pic message to the server
         TextView textView = findViewById(R.id.textline);
         String text = textView.getText().toString();
         String key = MakeRandomKey();
-        //byte[] encryptedmessage = EncryptText(text, key);
-        //Image img = HideTextInImage(encryptedmessage, key);
+        String encryptedmessage = EncryptText(text, key);
+        ImageView img = HideTextInImage(encryptedmessage, key);
     }
 
-    public String MakeRandomKey(){
-        byte[] rad = new byte[40];
-        Random key = new Random();
-        key.nextBytes(rad);
-        return key.toString();
+    public String MakeRandomKey(){                              //finished
+        byte[] key = new byte[200];
+        Random rad = new Random();
+        rad.nextBytes(key);
+        return new String(key, StandardCharsets.UTF_8);
     }
 
-    //public byte[] EncryptText(String text, String key){
-    //    int Rannum = new Random().nextInt(2) + 1;
-    //    if (Rannum == 1)
-     //       return(EncryptingTextWay1(text, key));
-    //    else
-    //        return(EncryptingTextWay2(text, key));
-   // }
+    public String EncryptText(String text, String key){                             //finished
+        int Rannum = new Random().nextInt(3) + 1;
+        if (Rannum == 1)
+            return Arrays.toString((EncryptingTextWay1(text, key))) +"way1";
+        if (Rannum == 2)
+            return(Arrays.toString(EncryptingTextWay2(text, key)))+"way2";
+        else
+            return(Arrays.toString(EncryptingTextWay3(text, key)))+"way3";
+    }
 
     public byte[] EncryptingTextWay1(String text, String key){   //finished
         byte[] bin = text.getBytes();
@@ -72,23 +86,44 @@ public class Logged_in extends AppCompatActivity {
         return encryptedmessage;
     }
 
-    //public byte[] EncryptingTextWay2(String text, String key){ // Encrypting the text
+    public byte[] EncryptingTextWay2(String text, String key){  //finished
+        byte[] bin = text.getBytes();
+        byte[] keybytes = key.getBytes();
+        byte[] encryptedmessage = new byte[bin.length];
+        for (int i = 0; i < bin.length;i++){
+            encryptedmessage[i] = (byte) (bin[i] & keybytes[i]);
+        }
+        return encryptedmessage;
+    }
+    public byte[] EncryptingTextWay3(String text, String key){  //finished
+        byte[] bin = text.getBytes();
+        byte[] keybytes = key.getBytes();
+        byte[] encryptedmessage = new byte[bin.length];
+        for (int i = 0; i < bin.length;i++){
+            encryptedmessage[i] = (byte) (bin[i] | keybytes[i]);
+        }
+        return encryptedmessage;
+    }
 
-    //}
+    public ImageView HideTextInImage(String encryptedmessage, String key) throws IOException, URISyntaxException { // hides the text and key in the image in one of two ways, need to figure out how to hide everything in the image.
+        int Rannum = new Random().nextInt(2) + 1;
+        if (Rannum == 1)
+            return(HideTextInImageWay1(encryptedmessage, key));
+        else
+            return(HideTextInImageWay2(encryptedmessage, key));
+    }
 
-    //public Image HideTextInImage(byte[] encryptedmessage, String key){ // hides the text and key in the image in one of two ways, need to figure out how to hide everything in the image.
-    //    int Rannum = new Random().nextInt(2) + 1;
-    //    if (Rannum == 1)
-    //       return(HideTextInImageWay1(encryptedmessage, key));
-    //    else
-    //        return(HideTextInImageWay2(encryptedmessage, key));
-    //}
+    public ImageView HideTextInImageWay1(String encryptedmessage, String key){ // hides the text in the Image
+        ImageView img = findViewById(R.id.imageView);
+        img.setImageResource(R.drawable.yoda);
+        return img;
+    }
 
-    //public byte[] HideTextInImageWay1(byte[] encryptedmessage, String key){ // hides the text in the Image
-    //}
-
-    //public byte[] HideTextInImageWay2(byte[] encryptedmessage, String key){ // hides the text in the Image in a different way
-    //}
+    public ImageView HideTextInImageWay2(String encryptedmessage, String key) throws URISyntaxException, IOException { // hides the text in the Image in a different way (metadata)
+        ImageView img = findViewById(R.id.imageView);
+        img.setImageResource(R.drawable.yoda);
+        return img;
+    }
 
     public void LoadMessages(){
         new Thread(new Runnable(){
