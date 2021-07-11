@@ -335,6 +335,7 @@ public class Logged_in extends AppCompatActivity {
                 int b = (add >>> bit) & 1;
                 imageInByte[offset] = (byte)((imageInByte[offset] & 0xFE) | b );
             }
+
         }
         ByteBuffer byteBuffer2 = ByteBuffer.wrap(imageInByte);
         Bitmap bmp = bitmap.copy(bitmap.getConfig(),true);

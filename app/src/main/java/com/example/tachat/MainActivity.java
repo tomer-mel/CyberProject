@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
                 return ((username.equals(getString(R.string.useremail1))) && (password.equals(getString(R.string.userpassword1)))) || ((username.equals(getString(R.string.useremail2))) && (password.equals(getString(R.string.userpassword2)))) || ((username.equals(getString(R.string.useremail3))) && (password.equals(getString(R.string.userpassword3)))) || ((username.equals(getString(R.string.useremail4))) && (password.equals(getString(R.string.userpassword4))));
            }
       }
+
         return false;
     }
     public void homepage(View view)
