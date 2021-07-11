@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE,READ_EXTERNAL_STORAGE}, 1);
     }
 
+
     public boolean IsValid()
     {
         EditText editText = (EditText) findViewById(R.id.emailfill);
