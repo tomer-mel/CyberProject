@@ -40,10 +40,7 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-//  UncoverTextInImage()
-//  HideTextInImageWay2() check
-//  SendImage() check
-//  LoadMessages() check
+
 
 public class Logged_in extends AppCompatActivity {
     @Override
@@ -58,7 +55,8 @@ public class Logged_in extends AppCompatActivity {
         TextView last_messages_line = findViewById(R.id.last_line);
         last_messages_line.requestFocus();
         //LoadMessages();
-        //GetNewMessage();
+        //while (true)
+            //GetNewMessage();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -72,16 +70,16 @@ public class Logged_in extends AppCompatActivity {
         byte[] key = MakeRandomKey(text);
         byte[] encryptedmessage = EncryptText(tx, key);
         byte[] img = HideTextInImage(encryptedmessage, key);
-        String message = UncoverTextInImage(img);
-        //SendToServer(img);
+        GotImage(img);
     }
     public void GotImage(byte[] img) throws IOException { // needs to send the pic to the server
-        String message = UncoverTextInImage(img);
-        String encryptedmessage = message.substring(0, message.length()/2);
-        String key = message.substring(message.length()/2+1);
-        String text = DecryptText(encryptedmessage.getBytes(), key.getBytes());
+        byte[] message = UncoverTextInImage(img);
+        int half = message.length / 2;
+        byte[] cypher = Arrays.copyOfRange(message, 0, half);
+        byte[] k = Arrays.copyOfRange(message, half, message.length);
+        String dec = DecryptText(cypher, k);
         TextView txt = findViewById(R.id.messages);
-        txt.append(text+"\n");
+        //txt.append(dec+"\n");
     }
 
     public byte[] MakeRandomKey(String text){                              //finished
@@ -104,7 +102,7 @@ public class Logged_in extends AppCompatActivity {
         if (key2 == 0)
             return DecryptingTextWay1(text, key);
         else
-            return DecryptingTextWay2(text, key);
+            return DecryptingTextWay1(text, key);
     }
 
     public byte[] EncryptingTextWay1(byte[] text, byte[] key){   //finished
@@ -163,23 +161,31 @@ public class Logged_in extends AppCompatActivity {
     public byte[] HideTextInImage(byte[] encryptedmessage, byte[] key) throws IOException {  //finished
         int Rannum = new Random().nextInt(2) + 1;
         if (Rannum == 1)
-            return(HideTextInImageWay1(encryptedmessage, key));
+            return(HideTextInImageWay2(encryptedmessage,key));
         else
-            return(HideTextInImageWay1(encryptedmessage, key));
+            return(HideTextInImageWay2(encryptedmessage,key));
     }
-    public String UncoverTextInImage(byte[] img) throws IOException {  //finished
+    public byte[] UncoverTextInImage(byte[] img) throws IOException {  //finished
         return(UncoveringTextInImageWay2(img));
     }
 
-    public String UncoveringTextInImageWay2(byte[] imageInByte) {
+    public byte[] UncoveringTextInImageWay2(byte[] imageInByte) {
         int offset = 0;
-        byte[] b = new byte[4];
-        for (int i = 0; i < 4; ++i) {
+        byte[] b = new byte[100];
+        int endind = 100;
+        for (int i = 0; i < b.length; ++i) {
             for (int bit = 7; bit >= 0; --bit, ++offset) {
-                b[i] = (byte) ((imageInByte[offset] & 0x01));
+                int get = imageInByte[offset];
+                int d = (get & 0x01 ) << bit;
+                b[i] = (byte)((b[i]) | (byte)d );
+            }
+            if (b[i] == 0) {
+                endind = i ;
+                break;
             }
         }
-        return new String(b);
+
+        return Arrays.copyOfRange(b, 0, endind);
     }
     public String UncoveringTextInImageWay1(byte[] imageInByte) throws IOException {
         ContextWrapper wrapper = new ContextWrapper(getApplicationContext());
@@ -272,7 +278,7 @@ public class Logged_in extends AppCompatActivity {
 
     @SuppressLint("UseCompatLoadingForDrawables")
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public byte[] HideTextInImageWay2(String encryptedmessage, String key) { // fix it
+    public byte[] HideTextInImageWay2(byte[] encryptedmessage, byte[] key) { // fix it
         Drawable drawable;
         ImageView img = findViewById(R.id.imageView);
         int rannum = new Random().nextInt(15) + 1;
@@ -313,8 +319,9 @@ public class Logged_in extends AppCompatActivity {
         byteBuffer.rewind();
         byte[] imageInByte = byteBuffer.array();
         int offset = 0;
-        encryptedmessage +=key;
-        byte[]addition = "abcd".getBytes();
+        byte[] addition = new byte[encryptedmessage.length + key.length];
+        System.arraycopy(encryptedmessage, 0, addition, 0, encryptedmessage.length);
+        System.arraycopy(key, 0, addition, encryptedmessage.length, key.length);
         if(addition.length + offset > imageInByte.length)
         {
             throw new IllegalArgumentException("File not long enough!");
@@ -340,10 +347,11 @@ public class Logged_in extends AppCompatActivity {
         new Thread(() -> {
             String info = "";
             try{
-                String ip= "192.168.14.82";
+                String ip= "192.168.43.75";
                 int port = 678;
                 Socket s = new Socket(ip, port);
                 DataOutputStream dout = new DataOutputStream(s.getOutputStream());
+
                 dout.writeUTF("GET");
                 BufferedReader din = new BufferedReader(new InputStreamReader(s.getInputStream()));
                 info = din.readLine();
@@ -356,38 +364,45 @@ public class Logged_in extends AppCompatActivity {
         }).start();
     }
     public void GetNewMessage(){ //  server: check if info is different and if so sends it
-        new Thread(() -> {
-            String info = "";
-            try{
-                String ip= "192.168.14.82";
-                int port = 678;
-                Socket s = new Socket(ip, port);
-                DataOutputStream dout = new DataOutputStream(s.getOutputStream());
-                dout.writeUTF("GETU");
-                BufferedReader din = new BufferedReader(new InputStreamReader(s.getInputStream()));
-                info = din.readLine();
-                din.close();
-                dout.close();
-                s.close();
-                TextView txt = findViewById(R.id.messages);
-                txt.append(info);
-            }catch(Exception e){
+            new Thread(() -> {
+                String info = "";
+                try {
+                    String ip = "192.168.43.75";
+                    int port = 678;
+                    Socket s = new Socket(ip, port);
+                    DataOutputStream dout = new DataOutputStream(s.getOutputStream());
+                    dout.writeInt(4);
+                    dout.writeUTF("GETU");
+                    BufferedReader din = new BufferedReader(new InputStreamReader(s.getInputStream()));
+                    info = din.readLine();
+                    din.close();
+                    dout.close();
+                    s.close();
+                    TextView txt = findViewById(R.id.messages);
+                    txt.append(info);
+                } catch (Exception e) {
                 try {
                     TimeUnit.SECONDS.sleep(10);
+                    GetNewMessage();
                 } catch (InterruptedException interruptedException) {
                     interruptedException.printStackTrace();
                 }
-            }
-        }).start();
+                }
+            }).start();
+
     }
     public void SendToServer(byte[] img){ //  send the pic to the server
         new Thread(() -> {
             try {
-                String ip = "192.168.14.82";
+                String ip = "192.168.43.75";
                 int port = 678;
                 Socket s = new Socket(ip, port);
                 DataOutputStream dout = new DataOutputStream(s.getOutputStream());
-                dout.writeUTF("POST" + Arrays.toString(img));
+                dout.writeInt(img.length);
+//                dout.flush();
+                dout.writeUTF("POST");
+//                dout.flush();
+                dout.write(img);
                 dout.close();
                 s.close();
             } catch (Exception e) {
