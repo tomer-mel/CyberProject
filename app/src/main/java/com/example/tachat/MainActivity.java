@@ -18,7 +18,6 @@ import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 
-
 public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE = "username";
     @RequiresApi(api = Build.VERSION_CODES.M)
